@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiDataController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,13 @@ Route::post('/tenantData', [ApiDataController::class, 'getData'])->name('tenantD
 Route::post('/fetchAndInsert', [ApiDataController::class, 'fetchAndInsertData']);
 Route::get('/getTenantData', [ApiDataController::class, 'getTenantData'])->name('getTenantData');
 Route::get('/chart-summary', [ApiDataController::class, 'getChartSummary']);
+Route::get('/getbuildingManagers', [ApiDataController::class, 'getBuildingManagerData'])->name('getBuildingManagers');
+Route::get('/managerDetail/{id}', [ApiDataController::class, 'getBuildingManagerDetail']);
+
+Route::get('/building-menagers', function () {
+    return view('buildingManagerList');
+})->name('buildingManager');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -37,4 +45,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
 });

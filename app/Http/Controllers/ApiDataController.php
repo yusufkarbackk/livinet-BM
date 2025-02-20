@@ -69,9 +69,28 @@ class ApiDataController extends Controller
                     ];
                 }, $data['services']);
 
-                // Insert data in one query (without checking for duplicates)
-                TenantData::insert($insertData);
+                //data for locations
+                $locations = array_filter(array_map(function ($service) {
+                    return $service['location'] ?? null;
+                }, $data['services']), function ($location) {
+                    return !empty($location); // Only keep non-empty locations
+                });
 
+                $locations = array_unique($locations);
+
+                $insertLocations = array_map(function ($location) {
+                    return [
+                        'location' => $location,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $locations);
+
+                TenantData::truncate(); // Deletes all rows in the table
+                TenantData::insert($insertData); // Insert data in one query (without checking for duplicates)
+
+                location::truncate(); // Deletes all rows in the table
+                location::insertOrIgnore($insertLocations); //insert locations
                 return response()->json(['message' => 'Data inserted successfully!']);
             }
 
@@ -105,6 +124,26 @@ class ApiDataController extends Controller
             $data = TenantData::all();
             return response()->json($data);
         }
+    }
+
+    public function getBuildingManagerData()
+    {
+        $data = User::where('role', 'bm')->get();
+        Log::info('User :', $data->toArray());
+
+        return response()->json($data);
+    }
+
+    public function getBuildingManagerDetail($userId)
+    {
+        // Get the user with their locations
+        $user = User::with('locations')->find($userId);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        return view('managerDetail', compact('user'));
     }
 
     public function getChartSummary()

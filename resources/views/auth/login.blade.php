@@ -1,48 +1,56 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
-        <x-validation-errors class="mb-4" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
 
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-                {{ session('status') }}
+<body>
+    <x-guest-layout>
+        <section class="bg-success vh-100 gradient-custom">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-white text-black" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+                                <x-validation-errors class="mb-4" />
+
+                                @if (session('status'))
+                                <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+                                    {{ session('status') }}
+                                </div>
+                                @endif
+                                <form action="{{ route('login') }}" method="post">
+                                    @csrf
+                                    <div class="mb-md-5 mt-md-4 pb-5">
+
+                                        <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                        <p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+                                        <div data-mdb-input-init class="form-outline-black form-black mb-4">
+                                            <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" />
+                                            <label value="{{ __('Email') }}" xclass="form-label" for="email">Email</label>
+                                        </div>
+
+                                        <div data-mdb-input-init class="form-outline form-white-900 mb-4">
+                                            <input name="password" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                            <label value="{{ __('Password') }}" class=" form-label" for="typePasswordX">Password</label>
+                                        </div>
+
+                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg px-5" type="submit">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
+        </section>
+    </x-guest-layout>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+</body>
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+</html>

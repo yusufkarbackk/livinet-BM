@@ -2,9 +2,6 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">User List</h3>
-    </div>
     <div class="card-body">
         <h1>Tenant Data</h1>
         <div class="container" width="400" height="200">
@@ -28,4 +25,5 @@
         </table>
     </div>
 </div>
+
 @endsection
