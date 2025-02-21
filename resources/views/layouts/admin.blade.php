@@ -7,7 +7,7 @@
     <title>Livinet BM</title>
     <!-- In your layout or view -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 
@@ -33,12 +33,14 @@
     </div>
 
     <!-- Scripts -->
-    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    @stack('script')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/chart-summary')
@@ -67,51 +69,6 @@
                         }
                     });
                 });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            console.log("initilize data tables")
-            $('#apiTable').DataTable({
-                processing: true,
-                serverSide: false, // Use `true` if you want server-side processing
-                paging: true,
-                searching: true,
-                ajax: {
-                    url: "{{ route('getTenantData') }}", // Generate URL for the named route
-                    dataSrc: "",
-                    type: "GET",
-                },
-                "columns": [{
-                        data: 'clientid',
-                    },
-                    {
-                        data: 'firstname'
-                    },
-                    {
-                        data: 'lastname'
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'serviceid'
-                    },
-                    {
-                        data: 'amount'
-                    },
-                    {
-                        data: 'location'
-                    },
-                    {
-                        data: 'status'
-                    },
-                    {
-                        data: 'termination_date'
-                    }
-                ]
-            });
         });
     </script>
 

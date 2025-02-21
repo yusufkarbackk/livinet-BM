@@ -45,52 +45,43 @@ class ApiDataController extends Controller
         return response()->json(json_decode($response, true));
     }
 
-    public function fetchAndInsertData()
+    public function fetchAndInsertData() // run this controller everyday
     {
+        $locations = location::all();
         $response = $this->getData();
         //dd($response);
         if ($response->isSuccessful()) {
             $data = $response->getData(true);
             if (isset($data['services']) && is_array($data['services'])) {
-                // Transform the data into an array for bulk insert
-                $insertData = array_map(function ($service) {
-                    return [
-                        'serviceid'        => $service['serviceid'],
-                        'clientid'         => $service['clientid'],
-                        'firstname'        => $service['firstname'],
-                        'lastname'         => $service['lastname'],
-                        'name'             => $service['name'],
-                        'amount'           => $service['amount'],
-                        'location'         => $service['location'],
-                        'status'           => $service['status'],
-                        'termination_date' => $service['termination_date'],
-                        'created_at'       => now(),
-                        'updated_at'       => now(),
-                    ];
-                }, $data['services']);
 
-                //data for locations
-                $locations = array_filter(array_map(function ($service) {
-                    return $service['location'] ?? null;
-                }, $data['services']), function ($location) {
-                    return !empty($location); // Only keep non-empty locations
-                });
+                foreach ($data['services'] as &$tenantData) {
+                    $tenantLocation = strtoupper($tenantData['location']);
 
-                $locations = array_unique($locations);
+                    if (empty($tenantLocation)) {
+                        $tenantData["locationId"] = 0;
+                    } else {
+                        // Fetch all locations
+                        $locations = DB::table('locations')->pluck('location', 'id');
 
-                $insertLocations = array_map(function ($location) {
-                    return [
-                        'location' => $location,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                }, $locations);
+                        $bestMatchId = 0;
+                        $bestScore = 999; // Higher means worse match
+
+                        foreach ($locations as $id => $locationName) {
+                            $levDistance = levenshtein(strtoupper($locationName), $tenantLocation);
+
+                            if ($levDistance < $bestScore) { // Find the closest match
+                                $bestScore = $levDistance;
+                                $bestMatchId = $id;
+                            }
+                        }
+
+                        // Allow a max typo difference of 3 characters
+                        $tenantData["locationId"] = ($bestScore <= 3) ? $bestMatchId : 0;
+                    }
+                }
 
                 TenantData::truncate(); // Deletes all rows in the table
-                TenantData::insert($insertData); // Insert data in one query (without checking for duplicates)
-
-                location::truncate(); // Deletes all rows in the table
-                location::insertOrIgnore($insertLocations); //insert locations
+                TenantData::insert($data['services']); // Bulk insert
                 return response()->json(['message' => 'Data inserted successfully!']);
             }
 
@@ -100,7 +91,7 @@ class ApiDataController extends Controller
         return response()->json(['error' => 'Failed to fetch data'], 500);
     }
 
-    public function getTenantData(Request $request)
+    public function getTenantData()
     {
         $user = Auth::user();
         if ($user->role == 'bm') {
@@ -117,13 +108,19 @@ class ApiDataController extends Controller
 
             $data = DB::table('tenant_data')
                 ->whereIn('location', $userLocationName)
-                ->get();
+                ->paginate(10);
 
-            return response()->json($data);
+            return $data;
         } else {
-            $data = TenantData::all();
-            return response()->json($data);
+            $data = TenantData::paginate(10);
+            return $data;
         }
+    }
+
+    public function showDashboard()
+    {
+        $data = $this->getTenantData();
+        return view('dashboard', ['tenants' => $data]);
     }
 
     public function getBuildingManagerData()

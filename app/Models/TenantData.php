@@ -19,6 +19,8 @@ class TenantData extends Model
         'amount', 
         'location',
         'status',
+        'locationId',
+        'termination_date'
     ];
 
     public function user(): BelongsTo{

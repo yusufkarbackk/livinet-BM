@@ -12,7 +12,8 @@ class location extends Model
     use HasFactory;
 
     protected $fillable = [
-        "location"
+        "location",
+        "string_reference"
     ];
 
     public function users() : BelongsToMany {
