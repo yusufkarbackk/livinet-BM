@@ -2,12 +2,23 @@
 
 @section('content')
 <div class="card">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class="card-body">
         <h1>Tenant Data</h1>
-        <div class="container" width="400" height="200">
+        <div class="container d-flex justify-content-center" width="400" style="height: 400px;">
             <canvas id="tenantChart" width="400" height="200"></canvas>
         </div>
-        <table id="" class="table table-bordered table-striped mb-4">
+        <table id="apiTable" class="my-3 table table-bordered table-striped mb-4">
             <thead>
                 <tr>
                     <th>client ID</th>
@@ -22,7 +33,6 @@
                 </tr>
             </thead>
             <tbody>
-            <tbody>
                 @foreach ($tenants as $tenant)
                 <tr>
                     <td>{{ $tenant->clientid }}</td>
@@ -33,15 +43,13 @@
                     <td>{{ $tenant->amount }}</td>
                     <td>{{ $tenant->location }}</td>
                     <td>{{ $tenant->status }}</td>
-                    <td>{{ $tenant->temrination_date }}</td>
+                    <td>{{ $tenant->termination_date }}</td>
                 </tr>
                 @endforeach
             </tbody>
-            </tbody>
+
         </table>
-        <div class="d-flex justify-content-center mt-3">
-            {{ $tenants->links('pagination::bootstrap-5') }}
-        </div>
+
     </div>
 </div>
 
@@ -51,43 +59,14 @@
     $(document).ready(function() {
         console.log("initilize data tables")
         $('#apiTable').DataTable({
-            processing: true,
-            serverSide: false, // Use `true` if you want server-side processing
-            paging: true,
-            searching: true,
-            ajax: {
-                url: "{{ route('getTenantData') }}", // Generate URL for the named route
-                dataSrc: "",
-                type: "GET",
-            },
-            "columns": [{
-                    data: 'clientid',
-                },
-                {
-                    data: 'firstname'
-                },
-                {
-                    data: 'lastname'
-                },
-                {
-                    data: 'name'
-                },
-                {
-                    data: 'serviceid'
-                },
-                {
-                    data: 'amount'
-                },
-                {
-                    data: 'location'
-                },
-                {
-                    data: 'status'
-                },
-                {
-                    data: 'termination_date'
+            layout: {
+                topStart: {
+                    buttons: [{
+                        extend: 'csv',
+                        fieldSeparator: ';'
+                    }, 'excel', 'pdf', 'print']
                 }
-            ]
+            },
         });
     });
 </script>

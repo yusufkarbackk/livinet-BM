@@ -20,8 +20,10 @@ class TenantData extends Model
         'location',
         'status',
         'locationId',
-        'termination_date'
+        'termination_date',
     ];
+
+    public $timestamps = true;
 
     public function user(): BelongsTo{
         return $this->belongsTo(User::class);

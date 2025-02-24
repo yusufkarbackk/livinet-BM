@@ -13,7 +13,25 @@
                     <th>Detail</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                @foreach ($managers as $manager)
+                <tr>
+                    <td>{{ $manager->id }}</td>
+                    <td>{{ $manager->email }}</td>
+                    <td>{{ $manager->created_at }}</td>
+                    <td>
+                        <a class="" href="/managerDetail/{{$manager->id}}">
+                            <button type="button" class="btn btn-info">Detail</button>
+                        </a>
+                        <form action="/users/{{$manager->id}}}/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 </div>

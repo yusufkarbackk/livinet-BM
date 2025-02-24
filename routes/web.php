@@ -29,13 +29,11 @@ Route::post('/tenantData', [ApiDataController::class, 'getData'])->name('tenantD
 Route::post('/fetchAndInsert', [ApiDataController::class, 'fetchAndInsertData']);
 Route::get('/getTenantData', [ApiDataController::class, 'getTenantData'])->name('getTenantData');
 Route::get('/chart-summary', [ApiDataController::class, 'getChartSummary']);
-Route::get('/getbuildingManagers', [ApiDataController::class, 'getBuildingManagerData'])->name('getBuildingManagers');
+Route::get('/getbuildingManagers', [ApiDataController::class, 'showBuildingManagers'])->name('showBuildingManagers');
 Route::get('/managerDetail/{id}', [ApiDataController::class, 'getBuildingManagerDetail']);
-
-Route::get('/building-menagers', function () {
-    return view('buildingManagerList');
-})->name('buildingManager');
-
+Route::get('/manager/{id}/edit', [ApiDataController::class, 'edit'])->name('edit');
+Route::put('/users/{id}', [ApiDataController::class, 'update'])->name('update');
+Route::delete('/users/{id}/delete', [ApiDataController::class, 'delete'])->name('delete');
 
 Route::middleware([
     'auth:sanctum',
@@ -43,12 +41,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [ApiDataController::class, 'showDashboard'])->name('dashboard');
-
-
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store']);
 });

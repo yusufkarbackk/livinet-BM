@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/building-menagers" class="nav-link">
+                        <a href="/getbuildingManagers" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p class="text-white">Building Manager List</p>
                         </a>

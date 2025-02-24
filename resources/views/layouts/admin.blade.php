@@ -38,6 +38,10 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js   "></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @stack('script')
@@ -72,36 +76,4 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            console.log("initilize data tables")
-            $('#buildingManagerTable').DataTable({
-                processing: true,
-                serverSide: false, // Use `true` if you want server-side processing
-                paging: true,
-                searching: true,
-                ajax: {
-                    url: "{{ route('getBuildingManagers') }}", // Generate URL for the named route
-                    dataSrc: "",
-                    type: "GET",
-                },
-                "columns": [{
-                        data: 'id',
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'created_at'
-                    },
-                    {
-                        data: 'null',
-                        render: function(data, type, row) {
-                            return `<a href="/managerDetail/${row.id}" class="btn btn-primary btn-sm">Detail</a>`;
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
 </body>
