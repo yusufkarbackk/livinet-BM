@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\location;
 use App\Models\TenantData;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 

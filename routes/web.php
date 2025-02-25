@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiDataController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
@@ -34,6 +35,13 @@ Route::get('/managerDetail/{id}', [ApiDataController::class, 'getBuildingManager
 Route::get('/manager/{id}/edit', [ApiDataController::class, 'edit'])->name('edit');
 Route::put('/users/{id}', [ApiDataController::class, 'update'])->name('update');
 Route::delete('/users/{id}/delete', [ApiDataController::class, 'delete'])->name('delete');
+
+Route::get('/location', [LocationController::class, 'insertForm'])->name('locationInserForm');
+Route::post('/location', [LocationController::class, 'insertLocationData'])->name('insertLocation');
+Route::get('/locations', [LocationController::class, 'showLocationList'])->name('locationList');
+Route::delete('/location/{id}/delete', [LocationController::class, 'delete'])->name('deleteLocation');
+Route::put('/location/{id}', [LocationController::class, 'update'])->name('updateLocation');
+Route::get('/location/{id}/edit', [LocationController::class, 'edit'])->name('editLocation');
 
 Route::middleware([
     'auth:sanctum',
