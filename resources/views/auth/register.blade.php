@@ -30,7 +30,7 @@
 
                     <!-- Dropdown content -->
                     <div style="max-height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;" x-show="open" @click.away="open = false" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
-                        @foreach (\App\Models\Location::orderBy('location', 'asc')->get() as $location)
+                        @foreach (\App\Models\location::orderBy('location', 'asc')->get() as $location)
                         <div class="flex items-center px-4 py-2">
                             <input type="checkbox" name="locations[]" value="{{ $location->id }}" id="location-{{ $location->id }}" class="mr-2">
                             <label for="location-{{ $location->id }}">{{ $location->location }}</label>
