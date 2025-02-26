@@ -7,6 +7,7 @@ use App\Models\TenantData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DataServices
 {
@@ -46,7 +47,19 @@ class DataServices
     {
         $locations = location::all();
         $response = $this->hitWhmcsApi();
-        //dd($response);
+
+	// Convert response to array
+$data = json_decode(json_encode($response->getData()), true);
+
+if (isset($data['result']) && $data['result'] === 'error') {
+   	$errorMessage = $data['message'] ?? 'Unknown error';
+        dump("API Error: " . $data['message']);
+	die();
+
+} else {
+    dump("API Call Successful!");
+}	
+        
         if ($response->isSuccessful()) {
             $data = $response->getData(true);
             if (isset($data['services']) && is_array($data['services'])) {
