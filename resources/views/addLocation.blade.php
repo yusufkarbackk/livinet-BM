@@ -3,28 +3,32 @@
 @section('content')
 
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <!-- <x-authentication-card-logo /> -->
-            <h1>Add Location</h1>
-        </x-slot>
+    <section class="bg-success d-flex justify-content-center align-items-center vh-100 gradient-custom">
+        <div class="container my-auto">
+            <div class="card shadow-lg p-4" style="max-width: 400px; margin: auto;">
+                <h4 class="text-center mb-4">Add Location</h4>
+                <x-validation-errors class="mb-4" />
 
-        <x-validation-errors class="mb-4" />
+                @if (session('status'))
+                <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+                    {{ session('status') }}
+                </div>
+                @endif
+                <form method="POST" action="{{ route('insertLocation') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input type="text" name="locationName" class="form-control" required placeholder="Enter Location">
+                    </div>
 
-        <form method="POST" action="{{ route('insertLocation') }}">
-            @csrf
-
-            <div class="mt-4">
-                <x-label for="locatioName" value="{{ __('locationName') }}" class="text-white" />
-                <x-input id="locationName" class="block mt-1 w-full text-black" type="text" name="locationName" :value="old('locationName')" required autocomplete="locationName" />
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">Add Location</button>
+                    </div>
+                </form>
             </div>
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+
+    </section>
 </x-guest-layout>
 @endsection
