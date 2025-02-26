@@ -3,7 +3,12 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <h1>Building Manager Data</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Building Manager Data</h1>
+            <a href="/register">
+                <button class="btn btn-success text-white">Add Building Manager</button>
+            </a>
+        </div>
         <table id="buildingManagerTable" class="table table-bordered table-striped">
             <thead>
                 <tr>

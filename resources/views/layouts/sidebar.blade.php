@@ -13,12 +13,6 @@
                 </li>
                 @if(Auth::user()->role == "admin")
                 <li class="nav-item">
-                    <a href="/register" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p class="text-white">Register Building Manager</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/locations" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p class="text-white">Locations</p>

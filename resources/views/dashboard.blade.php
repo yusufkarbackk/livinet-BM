@@ -63,8 +63,9 @@
                 topStart: {
                     buttons: [{
                         extend: 'csv',
+                        className: 'btn btn-success',
                         fieldSeparator: ';'
-                    }, 'excel', 'pdf', 'print']
+                    }, 'excel', 'pdf']
                 }
             },
         });

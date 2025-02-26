@@ -15,7 +15,7 @@
     @endif
     <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Building Manager Data</h2>
+            <h1>Tenant Locations</h2>
             <a href="/location">
                 <button class="btn btn-success text-white">Add Location</button>
             </a>
