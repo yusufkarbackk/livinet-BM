@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -14,13 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!User::where('email', 'admin@example.com')->exists()) {
-            $user = User::create([
-                'name' => 'Admin User',
-                'email' => 'admin@example.com',
-                'password' => Hash::make('livinet232'),
-                'role' => 'admin'
-            ]);
-        }
+        DB::table('locations')->insert([
+            ['location' => 'HARCO GLODOK'],
+            ['location' => 'ASPEN PEAK RESIDENCE - TOWER C'],
+            ['location' => 'ASPEN PEAK RESIDENCE - TOWER D'],
+            ['location' => 'ASPEN RESIDENCE - TOWER A'],
+        ]);
     }
 }
