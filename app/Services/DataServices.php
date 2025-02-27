@@ -48,18 +48,17 @@ class DataServices
         $locations = location::all();
         $response = $this->hitWhmcsApi();
 
-	// Convert response to array
-$data = json_decode(json_encode($response->getData()), true);
+        // Convert response to array
+        $data = json_decode(json_encode($response->getData()), true);
 
-if (isset($data['result']) && $data['result'] === 'error') {
-   	$errorMessage = $data['message'] ?? 'Unknown error';
-        dump("API Error: " . $data['message']);
-	die();
+        if (isset($data['result']) && $data['result'] === 'error') {
+            $errorMessage = $data['message'] ?? 'Unknown error';
+            dump("API Error: " . $data['message']);
+            die();
+        } else {
+            dump("API Call Successful!");
+        }
 
-} else {
-    dump("API Call Successful!");
-}	
-        
         if ($response->isSuccessful()) {
             $data = $response->getData(true);
             if (isset($data['services']) && is_array($data['services'])) {
@@ -112,19 +111,20 @@ if (isset($data['result']) && $data['result'] === 'error') {
                 ->where('user_id', $user->id)
                 ->pluck('location_id');
 
-            $userLocationName = DB::table('locations')
-                ->whereIn('id', $userLocationIds)
-                ->pluck('location');
-
             //Log::info('User Location :', $userLocationName->toArray());
 
             $data = DB::table('tenant_data')
-                ->whereIn('location', $userLocationName)
+                ->leftJoin('locations', 'tenant_data.locationId', '=', 'locations.id')
+                ->whereIn('tenant_data.locationId', $userLocationIds)
+                ->select('tenant_data.*', 'locations.location as location')
                 ->get();
 
             return $data;
         } else {
-            $data = TenantData::all();
+            $data = DB::table('tenant_data')
+                ->leftJoin('locations', 'tenant_data.locationId', '=', 'locations.id')
+                ->select('tenant_data.*', 'locations.location as location')
+                ->get();
             return $data;
         }
     }

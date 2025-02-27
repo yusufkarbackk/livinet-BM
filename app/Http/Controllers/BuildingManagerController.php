@@ -31,7 +31,6 @@ class BuildingManagerController extends Controller
         try {
             $user = User::create([
                 'email' => $input['email'],
-                'location' => $input['locations'],
                 'password' => Hash::make($input['password']),
             ]);
             if (!empty($input['locations'])) {
