@@ -31,15 +31,19 @@
                                         <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
                                         <div data-mdb-input-init class="form-outline-black form-black mb-4">
-                                            <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" />
                                             <label value="{{ __('Email') }}" xclass="form-label" for="email">Email</label>
+
+                                            <input name="email" placeholder="Email" type="email" id="typeEmailX" required class="form-control form-control-lg" />
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline form-white-900 mb-4">
-                                            <input name="password" type="password" id="typePasswordX" class="form-control form-control-lg" />
                                             <label value="{{ __('Password') }}" class=" form-label" for="typePasswordX">Password</label>
-                                        </div>
 
+                                            <input name="password" placeholder="Password" type="password" id="typePasswordX" required class="form-control form-control-lg" />
+                                        </div>
+                                        <a href="/forgot-password">
+                                            <p>Reset Password</p>
+                                        </a>
                                         <button data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg px-5" type="submit">Login</button>
                                     </div>
                                 </form>
