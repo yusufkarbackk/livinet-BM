@@ -24,12 +24,12 @@
                     <th>client ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>name</th>
+                    <th>Product Name</th>
                     <th>Service ID</th>
-                    <th>amount</th>
-                    <th>location</th>
-                    <th>status</th>
-                    <th>termination_Date</th>
+                    <th>Amount</th>
+                    <th>Location
+                    <th>Status</th>
+                    <th>Termination Date</th>
                 </tr>
             </thead>
             <tbody>

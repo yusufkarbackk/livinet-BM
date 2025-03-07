@@ -57,6 +57,7 @@ class DataServices
             die();
         } else {
             dump("API Call Successful!");
+            dump($data['result']);
         }
 
         if ($response->isSuccessful()) {
@@ -90,7 +91,6 @@ class DataServices
                     $tenantData['created_at'] = now();
                     $tenantData['updated_at'] = now();
                 }
-
                 TenantData::truncate(); // Deletes all rows in the table
                 TenantData::insert($data['services']); // Bulk insert
                 return response()->json(['message' => 'Data inserted successfully!']);

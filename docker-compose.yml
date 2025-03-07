@@ -1,0 +1,65 @@
+services:
+    livinet-bm:
+        build: .
+        container_name: livinet-bm
+        restart: unless-stopped
+        working_dir: /var/www/
+        depends_on:
+            - mysql
+        environment:
+            - APP_NAME=LivinetBM
+            - APP_ENV=local
+            - APP_KEY=base64:lFTWLyCgtZQmJY1Pcnd6tC+Ot4RIEIC306vavdNqSiw=
+            - APP_DEBUG=true
+            - APP_URL=http://localhost
+            - DB_HOST=mysql
+            - DB_DATABASE=livinet-manager
+            - DB_USERNAME=root
+            - DB_PASSWORD=""
+            - QUEUE_CONNECTION=database
+            - MAIL_MAILER=smtp
+            - MAIL_HOST=bci.mybati.co.id
+            - MAIL_PORT=587
+            - MAIL_USERNAME=no-reply@dev.mybaticloud.com
+            - MAIL_PASSWORD=CsDoQGwdqJmN
+            - MAIL_ENCRYPTION=tls
+            - MAIL_FROM_ADDRESS="no-reply-sandbox-tulip@mybaticloud.com"
+            - MAIL_FROM_NAME="Livinet BM"
+            - TENANT_DATA_URL = "https://portal.livinet.id/includes/api.php?action=getservicesbm&identifier=CoC99xcMN37lDdpSHSvG2J8jgwFgTNX0&secret=Bn8a2BacsNqPdGzViipZYoiAabOvAMPo&responsetype=json"
+        networks:
+            - livinet-bm-network
+        volumes:
+            - laravel-storage:/var/www/public
+        expose:
+            - 9000
+    mysql:
+        image: mysql:8.0
+        container_name: livinetBM-db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ""
+            MYSQL_DATABASE: livinet-manager
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        networks:
+            - livinet-bm-network
+    nginx:
+        image: nginx:latest
+        container_name: livinet-nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - laravel-storage:/var/www/public # <-- Access Laravel public folder
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - mysql
+            - livinet-bm
+        networks:
+            - livinet-bm-network
+networks:
+    livinet-bm-network:
+        driver: bridge
+volumes:
+    laravel-storage:
