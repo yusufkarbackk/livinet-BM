@@ -14,7 +14,7 @@
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <img src="/storage/images/livinet-logo.png" class="card-img-top" alt="...">
+                        <img src="{{ asset('images/livinet-logo.png') }}" class="card-img-top" alt="...">
                         <div class="card border-success text-black mt-5" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-left">
                                 <x-validation-errors class="mb-4" />

@@ -22,7 +22,7 @@ chmod -R 777 storage bootstrap/cache
 
 # Run database migrations and seeders
 php artisan migrate --force
-# php artisan db:seed --force
+php artisan db:seed --force
 
 # Start PHP-FPM
 echo "Starting PHP-FPM..."
