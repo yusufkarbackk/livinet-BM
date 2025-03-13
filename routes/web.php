@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+use Tests\Query\QueryTesting;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +56,7 @@ Route::middleware([
     Route::delete('/location/{id}/delete', [LocationController::class, 'delete'])->name('deleteLocation');
     Route::put('/location/{id}', [LocationController::class, 'update'])->name('updateLocation');
     Route::get('/location/{id}/edit', [LocationController::class, 'edit'])->name('editLocation');
+
+    Route::get(uri: '/testQuery', [QueryTesting::class, 'testQuery']);
+
 });

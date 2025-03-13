@@ -22,7 +22,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer using multi-stage build (reduces final image size)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+COPY public/images /var/www/html/public/images
 # Copy existing application directory contents
 COPY . .
 

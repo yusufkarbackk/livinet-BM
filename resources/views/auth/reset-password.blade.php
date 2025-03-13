@@ -38,12 +38,12 @@
 
                                     <div class="mt-4">
                                         <label class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" required placeholder="Enter your email">
+                                        <input type="password" name="password" class="form-control" required placeholder="Enter your Password">
                                     </div>
 
                                     <div class="mt-4">
                                         <label class="form-label">Confirm Password</label>
-                                        <input type="password" name="password_confirmation" class="form-control" required placeholder="Enter your email">
+                                        <input type="password" name="password_confirmation" class="form-control" required placeholder="Confirm Password">
                                     </div>
 
                                     <div class="flex items-center justify-end mt-4">
