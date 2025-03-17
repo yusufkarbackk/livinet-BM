@@ -38,7 +38,7 @@
 
                                     <div class="mt-4">
                                         <label class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control" required placeholder="Enter your Password">
+                                        <input type="password" name="password" class="form-control" required placeholder="Enter New Password">
                                     </div>
 
                                     <div class="mt-4">

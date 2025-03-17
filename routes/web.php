@@ -57,6 +57,6 @@ Route::middleware([
     Route::put('/location/{id}', [LocationController::class, 'update'])->name('updateLocation');
     Route::get('/location/{id}/edit', [LocationController::class, 'edit'])->name('editLocation');
 
-    Route::get(uri: '/testQuery', [QueryTesting::class, 'testQuery']);
+    //Route::get(uri: '/testQuery', [QueryTesting::class, 'testQuery']);
 
 });
