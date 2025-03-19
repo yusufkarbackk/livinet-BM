@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::table('locations')->insert([
-            ['location' => 'HARCO GLODOK'],
-            ['location' => 'ASPEN PEAK RESIDENCE - TOWER C'],
-            ['location' => 'ASPEN PEAK RESIDENCE - TOWER D'],
-            ['location' => 'ASPEN RESIDENCE - TOWER A'],
+            ['location' => 'HARCO GLODOK', 'string_reference' => 'HARCO GLODOK'],
+            ['location' => 'ASPEN PEAK RESIDENCE - TOWER C', 'string_reference' => 'ASPEN PEAK RESIDENCE - TOWER C'],
+            ['location' => 'ASPEN PEAK RESIDENCE - TOWER D', 'string_reference' => 'ASPEN PEAK RESIDENCE - TOWER D'],
+            ['location' => 'ASPEN RESIDENCE - TOWER A', 'string_reference' => 'ASPEN RESIDENCE - TOWER A'],
+            ['location' => 'PONDOK AREN TANGERANG SELATAN', 'string_reference' => 'PONDOK AREN TANGERANG SELATAN'],
         ]);
     }
 }

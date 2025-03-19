@@ -12,6 +12,7 @@ class TenantData extends Model
 
     protected $fillable = [
         'clientid',
+        'code',
         'firstname', 
         'lastname', 
         'serviceid', 

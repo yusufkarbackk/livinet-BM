@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class location_user extends Model
+class Location_user extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'location_id'
+        "location",
+        "string_reference"
     ];
-
-    protected $table = 'location_users';
 }

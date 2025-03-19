@@ -25,7 +25,6 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Product Name</th>
-                    <th>Service ID</th>
                     <th>Amount</th>
                     <th>Location
                     <th>Status</th>
@@ -39,7 +38,6 @@
                     <td>{{ $tenant->firstname }}</td>
                     <td>{{ $tenant->lastname }}</td>
                     <td>{{ $tenant->name }}</td>
-                    <td>{{ $tenant->serviceid }}</td>
                     <td>{{ $tenant->amount }}</td>
                     <td>{{ $tenant->location }}</td>
                     <td>{{ $tenant->status }}</td>
